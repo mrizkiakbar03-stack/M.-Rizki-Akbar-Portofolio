@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <!-- Chosen Palette: Slate & Sky Blue Neutral Palette -->
+    <!-- Application Structure Plan: Interactive portfolio dashboard organized by Hero, About Summary, Skills Matrix, Interactive Project Showcase with Filter & Modals, FMCG Live Analytics Explorer Chart, Experience & Education Timeline, Certifications, and Direct Contact with CV Download Integration. Designed for recruiters and hiring managers to quickly evaluate technical competence, practical project impacts, statistical background, and contact details smoothly on any screen size. -->
+    <!-- Visualization & Content Choices: FMCG Sales Data -> Inform & Compare -> Interactive Chart.js Canvas Bar/Doughnut Chart -> Toggle Buttons -> Provides interactive data view of 20,000 transactions and channel/category distributions without layout breakage -> Chart.js Canvas Rendering. NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Rizki Akbar, S.Si. | Data Analyst & Applied Statistician Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0f172a',
+                        },
+                        accent: '#06b6d4',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 280px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 selection:bg-sky-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 w-full glass-card border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid font-mono text-sm">&lt;M/&gt;</i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight block leading-none">M. Rizki Akbar</span>
+                        <span class="text-xs font-mono text-sky-600 dark:text-sky-400 font-medium">S.Si. • Data Analyst</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-6 text-sm font-medium">
+                    <a href="#hero" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Hero</a>
+                    <a href="#about" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Tentang</a>
+                    <a href="#skills" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Keahlian</a>
+                    <a href="#projects" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Proyek</a>
+                    <a href="#experience" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Pengalaman</a>
+                    <a href="#certifications" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Sertifikasi</a>
+                    <a href="#contact" class="nav-link px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Kontak</a>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <button id="themeToggleBtn" aria-label="Toggle theme" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors border border-slate-200 dark:border-slate-700">
+                        <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    </button>
+                    
+                    <a href="CV M. RIZKI AKBAR.pdf" target="_blank" download="CV M. RIZKI AKBAR.pdf" class="hidden lg:inline-flex items-center gap-2 px-3.5 py-2 text-sm font-semibold text-sky-700 dark:text-sky-300 bg-sky-100/80 dark:bg-sky-950 hover:bg-sky-200 dark:hover:bg-sky-900 border border-sky-300 dark:border-sky-800 rounded-xl transition-all shadow-sm">
+                        <i class="fa-solid fa-file-arrow-down text-sky-600 dark:text-sky-400 text-xs"></i> Unduh CV
+                    </a>
+
+                    <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-700 active:bg-sky-800 rounded-xl shadow-md shadow-sky-600/20 transition-all">
+                        <i class="fa-solid fa-paper-plane text-xs"></i> Hubungi
+                    </a>
+
+                    <button id="mobileMenuBtn" aria-label="Toggle menu" class="md:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 pt-2 pb-4 space-y-2">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Hero</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Tentang</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Keahlian</a>
+            <a href="#projects" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Proyek Utama</a>
+            <a href="#experience" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Pengalaman & Edukasi</a>
+            <a href="#certifications" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Sertifikasi</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600">Kontak</a>
+            <a href="CV M. RIZKI AKBAR.pdf" target="_blank" download="CV M. RIZKI AKBAR.pdf" class="mobile-link block px-3 py-2.5 rounded-lg text-sky-700 dark:text-sky-300 font-semibold bg-sky-100 dark:bg-sky-950 text-center border border-sky-300 dark:border-sky-800">
+                <i class="fa-solid fa-file-arrow-down mr-2"></i> Download CV (PDF)
+            </a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-sky-500/10 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-72 h-72 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-100 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Terbuka untuk Peluang Kerja & Proyek Data
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                        M. Rizki Akbar, <span class="gradient-text">S.Si.</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-sky-700 dark:text-sky-400 font-mono font-medium">
+                        Data Analyst <span class="text-slate-400">|</span> Applied Statistician <span class="text-slate-400">|</span> Mathematics Graduate
+                    </p>
+
+                    <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Lulusan Matematika (Konsentrasi Statistika) UIN Suska Riau (IPK 3.41/4.00). Berpengalaman mengolah, mengevaluasi, dan memvisualisasikan data kuantitatif menggunakan <strong class="text-slate-900 dark:text-white font-semibold">SQL, Python, Excel, Power BI,</strong> dan <strong class="text-slate-900 dark:text-white font-semibold">Minitab</strong> untuk menghasilkan rekomendasi berbasis data yang terukur.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <i class="fa-solid fa-location-dot text-sky-600"></i> Pekanbaru / Kampar, Riau
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <i class="fa-solid fa-graduation-cap text-sky-600"></i> UIN Suska Riau (IPK 3.41)
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="CV M. RIZKI AKBAR.pdf" target="_blank" download="CV M. RIZKI AKBAR.pdf" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold shadow-lg shadow-sky-600/30 hover:shadow-sky-600/40 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-file-arrow-down text-lg"></i> Unduh CV (PDF)
+                        </a>
+                        <a href="#projects" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold shadow-md transition-all transform hover:-translate-y-0.5 border border-slate-700">
+                            <i class="fa-solid fa-chart-pie"></i> Lihat Proyek
+                        </a>
+                        <a href="https://wa.me/6282172302429" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-600/20 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="mailto:mrizkiakbar03@gmail.com" class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-sky-600 hover:bg-sky-50 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800" title="Email">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/mrizkiakbar" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-sky-600 hover:bg-sky-50 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="https://github.com/mrizkiakbar" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-sky-600 hover:bg-sky-50 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-800" title="GitHub">
+                            <i class="fa-brands fa-github text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="glass-card rounded-3xl p-6 shadow-2xl relative z-10 overflow-hidden">
+                            <div class="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 group">
+                                <img src="Profil Profesional M. Rizki Akbar.jpeg" 
+                                     alt="Foto Profil M. Rizki Akbar, S.Si." 
+                                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x800/0f172a/0284c7?text=M.+Rizki+Akbar,+S.Si.';">
+                                
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4">
+                                    <span class="text-white font-mono text-xs bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-slate-700">
+                                        <i class="fa-solid fa-code-commit text-sky-400 mr-1"></i> Data-Driven Problem Solver
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800">
+                                    <div class="text-xl sm:text-2xl font-extrabold text-sky-600 dark:text-sky-400 font-mono">20,000+</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">Data Transaksi FMCG</div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800">
+                                    <div class="text-xl sm:text-2xl font-extrabold text-sky-600 dark:text-sky-400 font-mono">6+ Tools</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">Python, SQL, PowerBI, etc</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-slate-100/70 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">RINGKASAN PROFIL</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Mengubah Data Kompleks Menjadi Wawasan Strategis
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950 flex items-center justify-center text-sky-600 dark:text-sky-400 text-xl font-bold mb-4">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Latar Belakang Matematika & Statistika</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Lulusan S1 Matematika Konsentrasi Statistika UIN Sultan Syarif Kasim Riau (IPK 3.41). Memiliki fondasi matematis kuat dalam analisis kuantitatif, teori probabilitas, dan inferensi statistik.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-xl font-bold mb-4">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Pemodelan Statistik & Machine Learning</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Terbiasa mengaplikasikan metode regresi advanced (Poisson, Negative Binomial, Regresi Logistik) dan Decision Tree Classification untuk menyelesaikan masalah riil di lapangan.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xl font-bold mb-4">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Business Intelligence & Dashboarding</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Mampu menyusun interactive sales dashboard di Power BI dan Looker Studio untuk memantau KPI bisnis, tren penjualan, serta analisis perilaku segmen pelanggan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-12 glass-card rounded-2xl p-8 border-l-4 border-l-sky-500">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2">
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white">Komitmen Terhadap Data Integrity</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 max-w-3xl">
+                            "Setiap angka membawa cerita bisnis. Fokus utama saya adalah memastikan proses data cleaning yang teliti, pemilihan metode statistik yang tepat tanpa bias, dan penyampaian hasil yang mudah dipahami pemangku kepentingan."
+                        </p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="CV M. RIZKI AKBAR.pdf" download="CV M. RIZKI AKBAR.pdf" target="_blank" class="whitespace-nowrap px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm transition-colors shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf"></i> Unduh CV PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">KEAHLIAN & METODOLOGI</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Stack Teknologi & Kemampuan Analitis
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+                            <div class="p-3 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400">
+                                <i class="fa-solid fa-terminal text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Technical Skills</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-1">
+                                    <span class="text-slate-800 dark:text-slate-200"><i class="fa-brands fa-python text-amber-500 mr-2"></i>Python (Pandas, Scikit-learn)</span>
+                                    <span class="text-sky-600 font-mono text-xs">Competent</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                                    <div class="bg-sky-600 h-2 rounded-full w-[88%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-1">
+                                    <span class="text-slate-800 dark:text-slate-200"><i class="fa-solid fa-database text-blue-500 mr-2"></i>SQL Queries & Aggregations</span>
+                                    <span class="text-sky-600 font-mono text-xs">Competent</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                                    <div class="bg-sky-600 h-2 rounded-full w-[85%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-1">
+                                    <span class="text-slate-800 dark:text-slate-200"><i class="fa-solid fa-file-excel text-emerald-600 mr-2"></i>MS Excel & Google Sheets</span>
+                                    <span class="text-sky-600 font-mono text-xs">Advanced</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                                    <div class="bg-sky-600 h-2 rounded-full w-[92%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-1">
+                                    <span class="text-slate-800 dark:text-slate-200"><i class="fa-solid fa-chart-simple text-amber-600 mr-2"></i>Power BI & Looker Studio</span>
+                                    <span class="text-sky-600 font-mono text-xs">Advanced</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                                    <div class="bg-sky-600 h-2 rounded-full w-[85%]"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-1">
+                                    <span class="text-slate-800 dark:text-slate-200"><i class="fa-solid fa-square-root-variable text-purple-500 mr-2"></i>Minitab & RapidMiner</span>
+                                    <span class="text-sky-600 font-mono text-xs">Intermediate</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                                    <div class="bg-sky-600 h-2 rounded-full w-[80%]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+                            <div class="p-3 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400">
+                                <i class="fa-solid fa-chart-line text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Statistical & Modeling</h3>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Logistic Regression</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Decision Tree Classification</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Poisson Regression</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Negative Binomial Regression</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Data Cleaning</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Data Visualization</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Statistical Analysis</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">Evaluation (Confusion Matrix & ROC)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+                            <div class="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">
+                                <i class="fa-solid fa-users text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Soft Skills & Leadership</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-sky-500 mt-1"></i>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">Problem Solving</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Mampu mengurai masalah abstrak menjadi langkah analitis terstruktur.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-sky-500 mt-1"></i>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">Critical Thinking</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Mengevaluasi asumsi statistik dan validitas data secara obyektif.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-sky-500 mt-1"></i>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">Analytical Communication</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Menyampaikan hasil analisis teknis secara sederhana kepada manajerial.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-sky-500 mt-1"></i>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">Leadership & Teamwork</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Pengalaman memimpin organisasi mahasiswa (Ketua HMJ) dan kolaborasi lintas tim.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 bg-slate-100/70 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">PORTFOLIO SHOWCASE</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Proyek Utama & Studi Kasus
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button class="project-filter-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-sky-600 text-white shadow-md shadow-sky-600/20" data-filter="all">
+                    Semua Proyek
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-sky-600 border border-slate-200 dark:border-slate-700" data-filter="ml">
+                    Machine Learning / Prediksi
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-sky-600 border border-slate-200 dark:border-slate-700" data-filter="stat">
+                    Pemodelan Statistik
+                </button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-sky-600 border border-slate-200 dark:border-slate-700" data-filter="bi">
+                    Data Analysis & Power BI
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsContainer">
+                
+                <div class="project-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="ml stat">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                                Skripsi / Tugas Akhir
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Akademik</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2">
+                            Analisis & Pemilihan Model Estimasi Ketepatan Waktu Kelulusan Mahasiswa (13.000+ Record Data)
+                        </h3>
+
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 line-clamp-3">
+                            Menganalisis 13.000+ rekam data mahasiswa. Melakukan pembersihan data, EDA, serta membandingkan performa model Regresi Logistik dan Decision Tree Classification menggunakan Confusion Matrix, Presisi, Sensitivitas, Spesifisitas, dan Kurva ROC.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Minitab</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">RapidMiner</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Excel</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800/60 mt-auto">
+                        <button onclick="openProjectModal('modal1')" class="w-full mt-4 py-2.5 px-4 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-sky-600 dark:hover:bg-sky-600 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2">
+                            Detail Metodologi & Hasil <i class="fa-solid fa-up-right-from-square text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="stat">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+                                Laporan Kerja Praktik
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">PT Jasa Raharja</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2">
+                            Analisis Pendapatan Samsat & Tingkat Kerentanan Kecelakaan Lalu Lintas
+                        </h3>
+
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 line-clamp-3">
+                            Mengolah data pendapatan Samsat dan data klaim kecelakaan PT Jasa Raharja Cabang Riau. Membandingkan performa Regresi Poisson vs Negatif Binomial untuk mengatasi overdispersi data cacah.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Minitab</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Excel</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800/60 mt-auto">
+                        <button onclick="openProjectModal('modal2')" class="w-full mt-4 py-2.5 px-4 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-sky-600 dark:hover:bg-sky-600 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2">
+                            Detail Metodologi & Hasil <i class="fa-solid fa-up-right-from-square text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="bi">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                                Bootcamp Case Study
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">KarirNex</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2">
+                            FMCG Sales Data Analysis & Interactive Power BI Dashboard (20.000 Transaksi)
+                        </h3>
+
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 line-clamp-3">
+                            End-to-end data cleaning, preprocessing, SQL query aggregation, dan pembuatan Sales Dashboard interaktif Power BI untuk dataset FMCG bernilai Rp880M+ dari 15 kota utama di Indonesia.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Power BI</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">SQL</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs">Excel</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800/60 mt-auto">
+                        <button onclick="openProjectModal('modal3')" class="w-full mt-4 py-2.5 px-4 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-sky-600 dark:hover:bg-sky-600 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2">
+                            Detail Metodologi & Hasil <i class="fa-solid fa-up-right-from-square text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 uppercase">
+                        Interactive Live Preview
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Visualisasi Mini FMCG Analytics Explorer</h3>
+                    <p class="text-slate-400 text-sm mt-1">Simulasi interaktif hasil olah data FMCG (20.000 Transaksi • Rp880M+ Total Sales)</p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="btnChannelSales" class="px-4 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white hover:bg-sky-500 transition-colors">
+                        Sales per Channel
+                    </button>
+                    <button id="btnCategorySales" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors">
+                        Kategori Produk
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+                    <div class="text-xs text-slate-400 font-mono">TOTAL REVENUE</div>
+                    <div class="text-xl sm:text-2xl font-bold text-emerald-400 mt-1">Rp 880.4 M+</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">15 Kota Utama Indonesia</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+                    <div class="text-xs text-slate-400 font-mono">TOTAL ORDERS</div>
+                    <div class="text-xl sm:text-2xl font-bold text-sky-400 mt-1">20,000 Transaksi</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Jan - Des 2025</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+                    <div class="text-xs text-slate-400 font-mono">UNIQUE CUSTOMERS</div>
+                    <div class="text-xl sm:text-2xl font-bold text-cyan-400 mt-1">93 B2B Clients</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Repeat Order Active</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+                    <div class="text-xs text-slate-400 font-mono">TOP CATEGORY</div>
+                    <div class="text-xl sm:text-2xl font-bold text-amber-400 mt-1">Makanan</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Dominan di Semua Channel</div>
+                </div>
+            </div>
+
+            <div class="chart-container bg-slate-950 p-6 rounded-2xl border border-slate-800 w-full relative">
+                <canvas id="fmcgChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">REKAM JEJAK</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Pengalaman Kerja & Kepemimpinan Organisasi
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <div class="space-y-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400">
+                            <i class="fa-solid fa-briefcase text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Pengalaman Profesional & Magang</h3>
+                    </div>
+
+                    <div class="relative pl-6 border-l-2 border-sky-500/30 space-y-8">
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-sky-600 border-4 border-slate-50 dark:border-slate-950"></div>
+                            
+                            <div class="glass-card rounded-2xl p-6 shadow-sm">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <h4 class="text-base font-bold text-slate-900 dark:text-white">Public Relations Intern</h4>
+                                    <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">
+                                        Jan 2025 – Feb 2025
+                                    </span>
+                                </div>
+                                <div class="text-sm font-semibold text-sky-600 dark:text-sky-400 mb-4">
+                                    PT Jasa Raharja Cabang Riau
+                                </div>
+                                <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc list-inside">
+                                    <li>Mengolah dan merekap data pendapatan Samsat serta verifikasi kelengkapan dokumen administratif.</li>
+                                    <li>Melakukan pengarsipan dokumen fisik & digital secara terstruktur untuk menunjang efisiensi operasional.</li>
+                                    <li>Menyusun laporan administrasi berkala dan mendukung pelayanan publik.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex items-center gap-3 pt-6 mb-4">
+                        <div class="p-3 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400">
+                            <i class="fa-solid fa-people-roof text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Pengalaman Kepemimpinan & Organisasi</h3>
+                    </div>
+
+                    <div class="relative pl-6 border-l-2 border-cyan-500/30 space-y-8">
+                        
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-cyan-600 border-4 border-slate-50 dark:border-slate-950"></div>
+                            
+                            <div class="glass-card rounded-2xl p-6 shadow-sm">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <h4 class="text-base font-bold text-slate-900 dark:text-white">Head / Ketua Himpunan</h4>
+                                    <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300">
+                                        2025
+                                    </span>
+                                </div>
+                                <div class="text-sm font-semibold text-cyan-600 dark:text-cyan-400 mb-4">
+                                    Himpunan Mahasiswa Jurusan (HMJ) Matematika - UIN Suska Riau
+                                </div>
+                                <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc list-inside">
+                                    <li>Memimpin jalannya organisasi secara menyeluruh dan mengarahkan tata kelola internal secara berkelanjutan.</li>
+                                    <li>Memimpin rapat evaluasi kinerja rutin serta menyusun perencanaan strategis & target operasional program.</li>
+                                    <li>Menjalin hubungan diplomasi dan mewakili himpunan dalam berbagai forum eksternal.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-cyan-600 border-4 border-slate-50 dark:border-slate-950"></div>
+                            
+                            <div class="glass-card rounded-2xl p-6 shadow-sm">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <h4 class="text-base font-bold text-slate-900 dark:text-white">Staff, Dept. Riset & Pengimbangan Keilmuan</h4>
+                                    <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300">
+                                        2023 – 2024
+                                    </span>
+                                </div>
+                                <div class="text-sm font-semibold text-cyan-600 dark:text-cyan-400 mb-2">
+                                    HMJ Matematika - UIN Suska Riau
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm">
+                                    Mengorganisir kegiatan kajian ilmiah, workshop akademik, dan pelatihan analisis data bagi mahasiswa jurusan matematika.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">
+                            <i class="fa-solid fa-graduation-cap text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Pendidikan Resmi</h3>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 shadow-sm relative border-l-4 border-l-emerald-500">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h4 class="text-lg font-bold text-slate-900 dark:text-white">S1 Matematika</h4>
+                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+                                2022 – 2026
+                            </span>
+                        </div>
+                        <div class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                            Universitas Islam Negeri Sultan Syarif Kasim Riau
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-bold mb-4">
+                            IPK: 3.41 / 4.00 (S.Si.)
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Fokus studi mencakup Analisis Regresi Terapan, Pemodelan Statistik Kuantitatif, Teori Probabilitas, Analisis Deret Waktu (Time Series), Machine Learning, dan Komputasi Data Berbasis Python, SQL & Excel.
+                        </p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 shadow-sm">
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-award text-amber-500"></i> Fokus Nilai Tambah
+                        </h4>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                <span class="font-bold block text-slate-900 dark:text-white mb-1">Riset Terstruktur</span>
+                                <span class="text-slate-500 dark:text-slate-400">Terbiasa menyusun laporan analitis metodologis berstandar karya ilmiah.</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                <span class="font-bold block text-slate-900 dark:text-white mb-1">Adaptabilitas Tools</span>
+                                <span class="text-slate-500 dark:text-slate-400">Cepat mempelajari software/package analitis baru sesuai kebutuhan.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="py-20 bg-slate-100/70 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">PENGEMBANGAN DIRI</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Sertifikasi & Pelatihan Profesional
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-sky-500">
+                    <div class="text-xs font-mono text-sky-600 dark:text-sky-400 font-bold mb-1">KarirNex</div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">
+                        Bootcamp Data Analyst: Excel, SQL, Python, & Power BI
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Studi kasus komprehensif FMCG Sales Data Analysis (20.000 transaksi). Mengolah data cleaning, SQL query, dan Power BI dashboard.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-semibold text-sky-600 dark:text-sky-400">
+                        <i class="fa-solid fa-certificate mr-1.5"></i> Verifikasi KarirNex
+                    </span>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-cyan-500">
+                    <div class="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mb-1">KarirNex</div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">
+                        Bootcamp Data Analyst: Excel & SQL
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Fokus pada manipulasi relasional database SQL, pembuatan complex query, Joins, Aggregations, dan Formula Excel Tingkat Lanjut.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+                        <i class="fa-solid fa-certificate mr-1.5"></i> Verifikasi KarirNex
+                    </span>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-indigo-500">
+                    <div class="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold mb-1">RevoU</div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">
+                        Mini Course: Intro to Data Analytics
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Pemahaman konsep dasar data analytics pipeline, penerjemahan kebutuhan bisnis menjadi metrik data kuantitatif.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                        <i class="fa-solid fa-certificate mr-1.5"></i> Verifikasi RevoU
+                    </span>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-purple-500">
+                    <div class="text-xs font-mono text-purple-600 dark:text-purple-400 font-bold mb-1">Dibimbing</div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">
+                        Free Class: Data Science & AI Machine Learning
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Pengenalan alur kerja Machine Learning dasar, supervised learning classification algorithms, dan pra-pemrosesan data.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-semibold text-purple-600 dark:text-purple-400">
+                        <i class="fa-solid fa-certificate mr-1.5"></i> Verifikasi Dibimbing
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-sky-600 uppercase mb-2">HUBUNGI SAYA</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Mari Berdiskusi & Bekerja Sama
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card rounded-2xl p-6 flex items-center justify-between border-l-4 border-l-sky-500 bg-sky-50/50 dark:bg-sky-950/30">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-500 dark:text-slate-400 font-mono block">Curriculum Vitae</span>
+                                <span class="text-base font-bold text-slate-900 dark:text-white">CV_M_Rizki_Akbar.pdf</span>
+                            </div>
+                        </div>
+                        <a href="CV M. RIZKI AKBAR.pdf" target="_blank" download="CV M. RIZKI AKBAR.pdf" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs transition-colors shadow-sm">
+                            <i class="fa-solid fa-download mr-1"></i> Unduh
+                        </a>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 flex items-center gap-4 border-l-4 border-l-emerald-500">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono block">WhatsApp Direct</span>
+                            <a href="https://wa.me/6282172302429" target="_blank" rel="noopener noreferrer" class="text-base font-bold text-slate-900 dark:text-white hover:text-emerald-600 transition-colors">
+                                0821-7230-2429
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 flex items-center gap-4 border-l-4 border-l-sky-500">
+                        <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono block">Surel / Email</span>
+                            <a href="mailto:mrizkiakbar03@gmail.com" class="text-base font-bold text-slate-900 dark:text-white hover:text-sky-600 transition-colors">
+                                mrizkiakbar03@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 flex items-center gap-4 border-l-4 border-l-blue-600">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono block">LinkedIn Profile</span>
+                            <a href="https://linkedin.com/in/mrizkiakbar" target="_blank" rel="noopener noreferrer" class="text-base font-bold text-slate-900 dark:text-white hover:text-blue-600 transition-colors">
+                                linkedin.com/in/mrizkiakbar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="glass-card rounded-3xl p-8 shadow-xl">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Kirim Pesan Langsung</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">Silakan isi formulir di bawah ini untuk tawaran kerja, proyek konsultasi data, atau sekadar berdiskusi.</p>
+
+                        <form id="contactForm" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="senderName" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap</label>
+                                    <input type="text" id="senderName" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                </div>
+                                <div>
+                                    <label for="senderEmail" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Anda</label>
+                                    <input type="email" id="senderEmail" required placeholder="budi@perusahaan.com" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="messageSubject" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subjek / Topik</label>
+                                <input type="text" id="messageSubject" required placeholder="Tawaran Kerja / Proyek Data Analysis" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            </div>
+
+                            <div>
+                                <label for="messageBody" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Pesan</label>
+                                <textarea id="messageBody" rows="4" required placeholder="Tuliskan detail pesan atau deskripsi proyek yang ingin didiskusikan..." class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm shadow-lg shadow-sky-600/30 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Pesan via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="text-sm font-medium text-slate-300">© 2026 M. Rizki Akbar, S.Si.</p>
+                <p class="text-xs text-slate-500">Data Analyst & Applied Statistician • Pekanbaru / Kampar, Riau</p>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="CV M. RIZKI AKBAR.pdf" target="_blank" download="CV M. RIZKI AKBAR.pdf" class="text-xs font-semibold text-sky-400 hover:underline flex items-center gap-1">
+                    <i class="fa-solid fa-download"></i> Download CV
+                </a>
+                <a href="#hero" class="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-sky-400 transition-colors" title="Kembali ke Atas">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modalBackdrop" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        
+        <div id="modal1" class="modal-content hidden glass-card max-w-3xl w-full rounded-3xl p-6 sm:p-8 relative shadow-2xl my-8 border border-slate-700">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-sky-600 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-sky-500/20 text-sky-400 border border-sky-500/30 uppercase font-semibold">
+                Tugas Akhir / Skripsi S1 Matematika
+            </span>
+
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-3 mb-4">
+                Analisis & Pemilihan Model Estimasi Ketepatan Waktu Kelulusan Mahasiswa (13.000+ Record Data)
+            </h3>
+
+            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-sky-500"></i> Latar Belakang & Tujuan
+                    </h4>
+                    <p class="mt-1">
+                        Ketepatan waktu kelulusan merupakan indikator efisiensi akademik perguruan tinggi. Penelitian ini menganalisis 13.000+ data rekam akademik mahasiswa untuk mengevaluasi akurasi model statistik dan Machine Learning.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gears text-sky-500"></i> Metodologi & Algoritma
+                    </h4>
+                    <ul class="list-disc list-inside mt-1 space-y-1">
+                        <li><strong>Regresi Logistik:</strong> Pemodelan probabilitas biner berdasarkan odds ratio variabel prediktor.</li>
+                        <li><strong>Decision Tree Classification:</strong> Pemisahan node berbasis Information Gain / Gini Impurity untuk mengidentifikasi aturan keputusan kuantitatif.</li>
+                        <li><strong>Tools Digunakan:</strong> Python, Minitab, RapidMiner, MS Excel.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-sky-500"></i> Evaluasi Model & Hasil
+                    </h4>
+                    <p class="mt-1">
+                        Evaluasi komprehensif dilakukan menggunakan Confusion Matrix, Akurasi, Presisi, Sensitivitas, Spesifisitas, dan Kurva ROC. Hasil memberikan rule-based intuitif bagi pihak program studi dalam merancang Early Warning System ketepatan kelulusan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-slate-800 text-white font-semibold text-sm hover:bg-slate-700">Tutup Modal</button>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal-content hidden glass-card max-w-3xl w-full rounded-3xl p-6 sm:p-8 relative shadow-2xl my-8 border border-slate-700">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-sky-600 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 uppercase font-semibold">
+                Laporan Kerja Praktik • PT Jasa Raharja Riau
+            </span>
+
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-3 mb-4">
+                Analisis Pendapatan Samsat & Tingkat Kerentanan Kecelakaan Lalu Lintas
+            </h3>
+
+            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-cyan-500"></i> Tanggung Jawab & Ringkasan Studi
+                    </h4>
+                    <p class="mt-1">
+                        Bertanggung jawab merekap data pendapatan Samsat, verifikasi dokumen administratif, serta mengolah data historis klaim kecelakaan lalu lintas PT Jasa Raharja Cabang Riau.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gears text-cyan-500"></i> Penanganan Overdispersi
+                    </h4>
+                    <p class="mt-1">
+                        Data cacah (count data) kecelakaan diuji menggunakan <strong>Regresi Poisson</strong> dan dilanjutkan ke <strong>Regresi Negatif Binomial</strong> untuk mengatasi masalah overdispersi varians sehingga diperoleh estimasi parameter yang akurat.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-cyan-500"></i> Rekomendasi Kebijakan
+                    </h4>
+                    <p class="mt-1">
+                        Menghasilkan grafik komparasi data aktual vs prediksi serta peta kerentanan kelompok usia produktif sebagai bahan pertimbangan strategis sosialisasi keselamatan berkendara.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-slate-800 text-white font-semibold text-sm hover:bg-slate-700">Tutup Modal</button>
+            </div>
+        </div>
+
+        <div id="modal3" class="modal-content hidden glass-card max-w-3xl w-full rounded-3xl p-6 sm:p-8 relative shadow-2xl my-8 border border-slate-700">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-sky-600 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase font-semibold">
+                Bootcamp Data Analyst • KarirNex (20.000 Transaksi)
+            </span>
+
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-3 mb-4">
+                FMCG Sales Data Analysis & Interactive Power BI Dashboard
+            </h3>
+
+            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-broom text-emerald-500"></i> 1. Cleaning & Preprocessing (Excel & SQL)
+                    </h4>
+                    <p class="mt-1">
+                        Pembersihan dataset messy FMCG 20.000 baris transaksi: perbaikan kolom terbalik (Order ID vs Sales Date), imputasi missing values, standarisasi format diskon, serta pemetaan 93 pelanggan unik di 15 kota utama Indonesia.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass text-emerald-500"></i> 2. Exploratory Data Analysis (Python & SQL)
+                    </h4>
+                    <p class="mt-1">
+                        Analisis Top 10 Pelanggan Paling Aktif berbasis kontribusi belanja, komparasi performa channel penjualan (Offline, Online Toko Oren, Toko Hijau), di mana kategori 'Makanan' mendominasi penjualan di seluruh channel.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-emerald-500"></i> 3. Business Intelligence (Power BI Dashboard)
+                    </h4>
+                    <p class="mt-1">
+                        Perancangan Sales Dashboard interaktif dengan KPI Cards (Total Sales Rp880M+, Quantity, Orders, Rating), Monthly Sales Trend, Donut Chart Share Channel, dan Interactive Slicer berdasarkan Status Transaksi.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-slate-800 text-white font-semibold text-sm hover:bg-slate-700">Tutup Modal</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.className = 'fa-solid fa-sun text-amber-400';
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.className = 'fa-solid fa-moon';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.className = 'fa-solid fa-moon';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.className = 'fa-solid fa-sun text-amber-400';
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const filterBtns = document.querySelectorAll('.project-filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-sky-600', 'text-white', 'shadow-md');
+                    b.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                });
+
+                btn.classList.add('active', 'bg-sky-600', 'text-white', 'shadow-md');
+                btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        if (categories.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        const backdrop = document.getElementById('modalBackdrop');
+        const modalContents = document.querySelectorAll('.modal-content');
+
+        function openProjectModal(modalId) {
+            backdrop.classList.remove('hidden');
+            modalContents.forEach(content => {
+                if (content.id === modalId) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            backdrop.classList.add('hidden');
+            modalContents.forEach(content => content.classList.add('hidden'));
+            document.body.style.overflow = 'auto';
+        }
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        });
+
+        let fmcgChartInstance = null;
+
+        function initFMCGChart(type = 'channel') {
+            const ctx = document.getElementById('fmcgChart').getContext('2d');
+            
+            if (fmcgChartInstance) {
+                fmcgChartInstance.destroy();
+            }
+
+            if (type === 'channel') {
+                fmcgChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Offline Store', 'Online Toko Oren', 'Online Toko Hijau'],
+                        datasets: [{
+                            label: 'Total Sales (Rp Miliar)',
+                            data: [350.5, 290.2, 239.7],
+                            backgroundColor: ['#0284c7', '#f97316', '#10b981'],
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ' Sales: Rp ' + context.raw + ' Miliar';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#94a3b8' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#94a3b8' }
+                            }
+                        }
+                    }
+                });
+            } else {
+                fmcgChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Makanan (Dominan)', 'Minuman', 'Perawatan Diri', 'Kebutuhan Rumah'],
+                        datasets: [{
+                            data: [42, 28, 18, 12],
+                            backgroundColor: ['#f59e0b', '#06b6d4', '#ec4899', '#8b5cf6'],
+                            borderWidth: 2,
+                            borderColor: '#020617'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: { color: '#e2e8f0', font: { size: 12 } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        document.getElementById('btnChannelSales').addEventListener('click', (e) => {
+            e.target.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white hover:bg-sky-500 transition-colors";
+            document.getElementById('btnCategorySales').className = "px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors";
+            initFMCGChart('channel');
+        });
+
+        document.getElementById('btnCategorySales').addEventListener('click', (e) => {
+            e.target.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white hover:bg-sky-500 transition-colors";
+            document.getElementById('btnChannelSales').className = "px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors";
+            initFMCGChart('category');
+        });
+
+        window.onload = function() {
+            initFMCGChart('channel');
+        };
+
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('senderName').value;
+            const email = document.getElementById('senderEmail').value;
+            const subject = document.getElementById('messageSubject').value;
+            const message = document.getElementById('messageBody').value;
+
+            const waText = encodeURIComponent(
+                `Halo M. Rizki Akbar,\n\nSaya ${name} (${email}).\nSubjek: ${subject}\n\nPesan:\n${message}`
+            );
+            
+            window.open(`https://wa.me/6282172302429?text=${waText}`, '_blank');
+        });
+    </script>
+</body>
+</html>
